@@ -61,8 +61,8 @@
               @click="removeUserById(scope.row.username)"
             ></el-button>
             <!--按钮提示  enterable鼠标进入到提示区域后文本隐藏-->
-            <el-tooltip effect="dark" content="分配角色" placement="top" :enterable="false">
-              <!--分配角色-->
+            <el-tooltip effect="dark" content="分配用户账号" placement="top" :enterable="false">
+              <!--分配账号-->
               <el-button type="warning" icon="el-icon-star-off" size="mini"></el-button>
             </el-tooltip>
           </template>
@@ -91,8 +91,8 @@
       <!--内容主体区:before-close="handleClose"-->
       <!--addForm数据  addFormRules验证规则-->
       <el-form ref="addFormRef" :model="addForm" :rules="addFormRules" label-width="80px">
-        <el-form-item label="用户名" prop="username">
-          <el-input v-model="addForm.username"></el-input>
+        <el-form-item label="角色" prop="role_name">
+          <el-input v-model="addForm.role_name"></el-input>
         </el-form-item>
         <el-form-item label="邮箱" prop="email">
           <el-input v-model="addForm.email"></el-input>
@@ -114,7 +114,7 @@
         <el-form-item label="用户">
           <el-input v-model="editForm.username" disabled></el-input>
         </el-form-item>
-        <el-form-item label="角色">
+        <el-form-item label="角色" prop="role_name">
           <el-input v-model="editForm.role_name"></el-input>
         </el-form-item>
         <el-form-item label="电话" prop="mobile">
@@ -167,16 +167,14 @@ export default {
       addDialogVisible: false,
       //添加用户的表单数据
       addForm: {
-        username: '',
-        password: '',
+        role_name: '',
         email: '',
         mobile: '',
       },
       // 添加表单的验证规则
       addFormRules: {
         //添加用户名的规则
-        username: [{ required: true, validator: validateUsername }],
-        password: [{ required: true, validator: validatePassword }],
+        role_name: [{ required: true, validator: validateUsername }],
         email: [{ required: true, validator: validateEmail }],
         mobile: [{ required: true, validator: validatePhone }],
       },
@@ -188,6 +186,7 @@ export default {
       editForm: {},
       // 修改表单的验证规则
       editFormRules: {
+        role_name: [{ required: true, validator: validateUsername }],
         email: [{ required: true, validator: validateEmail }],
         mobile: [{ required: true, validator: validatePhone }],
       },
@@ -274,7 +273,7 @@ export default {
       }
       this.changeusers = result
       //console.log(this.changeusers)
-      this.totals = this.users.length
+      //this.totals = this.users.length
       //  查询时展示数量的处理
       this.shownews = this.changeusers[this.queryInfo.pagenum - 1]
       // 当输入框内容不为空

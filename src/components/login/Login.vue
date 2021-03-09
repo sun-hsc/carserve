@@ -38,7 +38,7 @@ import { isHasObj } from '@/assets/js/lpl2.js'
 import { validateUsername, validatePassword } from '@/assets/js/validate'
 export default {
   name: 'Login',
-  data () {
+  data() {
     return {
       loginForm: {
         username: 'admin',
@@ -67,17 +67,17 @@ export default {
       },
     }
   },
-  created () {
+  created() {
     this.setLogin()
   },
   methods: {
     // 表单重置按钮
-    resetLoginForm () {
+    resetLoginForm() {
       // console.log(this) 测试能否获取对象
       // resetFields：element-ui提供的表单方法 ——> 表单重置
       this.$refs.loginFormRef.resetFields()
     },
-    setLogin () {
+    setLogin() {
       set('Account', {
         adminUser: [
           { username: 'admin', password: '123456' },
@@ -85,7 +85,7 @@ export default {
         ],
       })
     },
-    login () {
+    login() {
       /**validate（）时elment-ui封装好的用于对整个表单进行验证
          validate的参数是一个回调函数。该回调函数在校验结束后被调用，
          是否校验成功和未通过校验的字段。 */

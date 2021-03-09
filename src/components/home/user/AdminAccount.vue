@@ -43,7 +43,7 @@
               type="primary"
               icon="el-icon-edit"
               size="mini"
-              @click="showEditDialog(scope.row.id)"
+              @click="showEditDialog(scope.row.username)"
             ></el-button>
             <!--删除按钮-->
             <el-button
@@ -51,7 +51,7 @@
               icon="el-icon-delete"
               circle
               size="mini"
-              @click="removeUserById(scope.row.id)"
+              @click="removeUserById(scope.row.username)"
             ></el-button>
           </template>
         </el-table-column>
@@ -59,8 +59,8 @@
 
       <!--分页区-->
       <el-pagination
-        @current-change="handleCurrentChange"
         @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
         :current-page="queryInfo.pagenum"
         :page-sizes="[3, 5, 10]"
         :page-size="queryInfo.pagesize"
@@ -87,18 +87,33 @@
         <el-button type="primary" @click="addUser">确 定</el-button>
       </span>
     </el-dialog>
+
+    <!--编辑信息对话框-->
+    <el-dialog title="修改用户" :visible.sync="editDialogVsible" width="50%" @close="editDialogClose">
+      <el-form ref="editFormRef" :model="editForm" :rules="editFormRules" label-width="80px">
+        <el-form-item label="用户账号" prop="username">
+          <el-input v-model="editForm.username"></el-input>
+        </el-form-item>
+        <el-form-item label="密码" prop="password">
+          <el-input v-model="editForm.password"></el-input>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="editDialogVsible = false">取 消</el-button>
+        <el-button type="primary" @click="editUserInfo">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import { set, get } from '@/assets/js/localStorage'
 import { validateUsername, validatePassword } from '@/assets/js/validate'
-import { isHasObj } from '@/assets/js/lpl2'
 export default {
   name: 'AdminAccount',
   data() {
     return {
-      datas: [],
+      admindatas: [],
       // 数组长度
       dataTotals: '',
       // 从新分组
@@ -125,8 +140,19 @@ export default {
         username: '',
         password: '',
       },
-      // addForm
+      // 添加对话框的验证规则
       addFormRules: {
+        username: [{ required: true, validator: validateUsername }],
+        password: [{ required: true, validator: validatePassword }],
+      },
+      //  修改对话框的显示和隐藏
+      editDialogVsible: false,
+      //  编辑对应用户的下标
+      adminId: '',
+      // 修改表单的数据
+      editForm: {},
+      // 修改表单的验证规则
+      editFormRules: {
         username: [{ required: true, validator: validateUsername }],
         password: [{ required: true, validator: validatePassword }],
       },
@@ -134,7 +160,7 @@ export default {
   },
   created() {
     this.getAccount()
-    this.handleSizeChange(3)
+    this.handleSizeChange(this.queryInfo.pagesize)
   },
   methods: {
     getAccount() {
@@ -158,7 +184,7 @@ export default {
       // 裁切好的数据数组
       this.changeDatas = result
       // 数据长度 => 数据量
-      this.dataTotals = this.datas.length
+      //this.dataTotals = this.datas.length
       //  查询时展示数量的处理
       this.showDatas = this.changeDatas[this.queryInfo.pagenum - 1]
       // 根据监听到inquiry的状态来判断展示查询的内容
@@ -166,9 +192,8 @@ export default {
     },
     //监听 页码 值改变
     handleCurrentChange(newPage) {
-      //console.log(newPage)
       this.queryInfo.pagenum = newPage
-      this.showdatas = this.changeDatas[newPage - 1]
+      this.showDatas = this.changeDatas[newPage - 1]
       // 根据是否有查询内容进行触发来覆盖没有查询的跳转
       if (this.inquiry == true) this.queryData()
     },
@@ -201,14 +226,13 @@ export default {
     addDialogClose() {
       this.$refs.addFormRef.resetFields()
     },
+    // 添加窗口
     addUser() {
       //接收校验结果
       this.$refs.addFormRef.validate((valid) => {
         if (!valid) return
         // 获取新的数据
         var uesrs = get('Account')
-        console.log(this.addAdminForm)
-        console.log(uesrs.adminUser)
         // 进行查询判断是否存在
         var n = uesrs.adminUser
           .map((item) => item.b)
@@ -216,15 +240,90 @@ export default {
 
         if (n == -1) this.$message.success('添加失败,用户已经存在')
         uesrs.adminUser.push(this.addAdminForm)
-        console.log(uesrs.adminUser)
         // 更新数据
-        set('Account', { addUser: uesrs.adminUser })
+        set('Account', { adminUser: uesrs.adminUser })
         this.$message.success('添加成功')
-        // 重新获取数据
-        this.handleCurrentChange(this.queryInfo.pagesize)
         // 关闭窗口
         this.addDialogVisible = false
+        // 重新获取数据
+        this.getAccount()
+        this.handleSizeChange(this.queryInfo.pagesize)
       })
+    },
+    // 修改按钮对话框
+    showEditDialog(username) {
+      // 获取最新数据，避免修改的是缓存的
+      this.admindatas = get('Account').adminUser
+      // 通过用户账号查询到下标
+      this.adminId = this.admindatas
+        .map((item) => item.username)
+        .indexOf(username)
+      // console.log(username, this.admindatas, this.adminId)
+      // 如果存在返回其下标值
+      if (this.adminId == -1) {
+        this.$message.success('用户账号不存在，刷新页面获取最新信息')
+      } else {
+        this.editDialogVsible = true
+        this.editForm = this.admindatas[this.adminId]
+        //console.log(this.editForm)
+      }
+    },
+    // 监听修改对话框，关闭时重置
+    editDialogClose() {
+      this.$refs.editFormRef.resetFields()
+    },
+    // 提交修改的表单
+    editUserInfo() {
+      this.$refs.editFormRef.validate((valid) => {
+        if (!valid) return
+
+        // 根据下标值进行修改对应的数组对象，插入数据
+        this.admindatas.splice(this.adminId, 1, this.editForm)
+        console.log(this.admindatas)
+        // 进行存储
+        set('Account', { adminUser: this.admindatas })
+        // 获取最新数据进行查询判断是否修改成功
+        var admin = get('Account').adminUser
+        var n = admin
+          .map((item) => item.username)
+          .indexOf(this.editForm.username)
+        if (n == -1) this.$message.success('修改失败')
+        this.$message.success('修改成功')
+
+        this.editDialogVsible = false
+        this.getAccount()
+        this.handleSizeChange(this.queryInfo.pagesize)
+      })
+    },
+    // 根据用户账号删除用户的信息
+    removeUserById(username) {
+      this.$confirm('此操作将永久删除该信息, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      })
+        .then(() => {
+          // 获取最新数据，避免删除的是缓存的
+          var admin = get('Account')
+          // 通过用户名查询到下标进行筛选删除
+          this.admindatas = admin.adminUser.filter(
+            (item) => item.username != username
+          )
+          set('Account', { adminUser: this.admindatas })
+          this.$message({
+            type: 'success',
+            message: '删除成功!',
+          })
+          this.getAccount()
+          this.handleSizeChange(this.queryInfo.pagesize)
+          this.handleCurrentChange(this.queryInfo.pagenum - 1)
+        })
+        .catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除',
+          })
+        })
     },
   },
 }
