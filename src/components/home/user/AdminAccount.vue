@@ -238,7 +238,7 @@ export default {
           .map((item) => item.b)
           .indexOf(this.addAdminForm.username)
 
-        if (n == -1) this.$message.success('添加失败,用户已经存在')
+        if (n == -1) this.$message.info('添加失败,用户已经存在')
         uesrs.adminUser.push(this.addAdminForm)
         // 更新数据
         set('Account', { adminUser: uesrs.adminUser })
@@ -287,7 +287,7 @@ export default {
         var n = admin
           .map((item) => item.username)
           .indexOf(this.editForm.username)
-        if (n == -1) this.$message.success('修改失败')
+        if (n == -1) this.$message.info('修改失败')
         this.$message.success('修改成功')
 
         this.editDialogVsible = false

@@ -23,7 +23,7 @@
           <el-button type="primary" @click="addDialogVisible = true">添加管理人员</el-button>
         </el-col>
         <el-col :span="4">
-          <el-button type="primary" @click="gotolink">用户账号管理</el-button>
+          <el-button type="info" @click="gotolink">用户账号管理</el-button>
         </el-col>
       </el-row>
 
@@ -58,12 +58,17 @@
               icon="el-icon-delete"
               circle
               size="mini"
-              @click="removeUserById(scope.row.username)"
+              @click="removeUserById(scope.row.mobile)"
             ></el-button>
             <!--按钮提示  enterable鼠标进入到提示区域后文本隐藏-->
             <el-tooltip effect="dark" content="分配用户账号" placement="top" :enterable="false">
               <!--分配账号-->
-              <el-button type="warning" icon="el-icon-star-off" size="mini"></el-button>
+              <el-button
+                type="warning"
+                icon="el-icon-star-off"
+                size="mini"
+                @click="giveUserById(scope.row.id)"
+              ></el-button>
             </el-tooltip>
           </template>
         </el-table-column>
@@ -129,6 +134,19 @@
         <el-button type="primary" @click="editUserInfo">确 定</el-button>
       </span>
     </el-dialog>
+
+    <!--分配用户账号对话框-->
+    <el-dialog title="分配用户账号" :visible.sync="giveDialogVsible" width="50%" @close="giveDialogClose">
+      <el-form ref="giveFormRef" :model="giveForm" label-width="80px">
+        <el-form-item label="用户账号" prop="username">
+          <el-input v-model="giveForm.username"></el-input>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="giveDialogVsible = false">取 消</el-button>
+        <el-button type="primary" @click="giveUserInfo">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -136,7 +154,6 @@
 import { set, get, clear } from '@/assets/js/localStorage'
 import {
   validateUsername,
-  validatePassword,
   validateEmail,
   validatePhone,
 } from '@/assets/js/validate'
@@ -192,6 +209,14 @@ export default {
       },
       // 判断当前状态是否为查询
       inquiry: false,
+      //  分配用户窗口
+      giveDialogVsible: false,
+      // 修改表单的数据
+      giveForm: {},
+      // 修改表单的验证规则
+      // giveFormRules: {
+      //   username: [{ required: true, validator: validateUsername }],
+      // },
     }
   },
   created() {
@@ -409,8 +434,8 @@ export default {
         this.handleSizeChange(this.queryInfo.pagesize)
       })
     },
-    // 根据id删除用户的信息
-    removeUserById(username) {
+    // 根据手机号删除用户的信息
+    removeUserById(mobile) {
       this.$confirm('此操作将永久删除该信息, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -420,7 +445,7 @@ export default {
           // 获取最新数据，避免删除的是缓存的
           var admin = get('Admin')
           // 通过用户名查询到下标进行筛选删除
-          this.users = admin.user.filter((item) => item.username != username)
+          this.users = admin.user.filter((item) => item.mobile != mobile)
           set('Admin', { user: this.users })
           this.$message({
             type: 'success',
@@ -435,6 +460,46 @@ export default {
             message: '已取消删除',
           })
         })
+    },
+    giveUserById(id) {
+      this.userId = this.users.map((item) => item.id).indexOf(id)
+      // 如果存在返回其下标值
+      if (this.userId != -1) this.givetForm = this.users[this.userId]
+      this.giveDialogVsible = true
+    },
+    // 监听分配对话框，关闭时重置
+    giveDialogClose() {
+      this.$refs.giveFormRef.resetFields()
+    },
+    giveUserInfo() {
+      // 获取账号进行判断是否存在
+      var account = get('Account').adminUser
+      var n = account
+        .map((item) => item.username)
+        .indexOf(this.giveForm.username)
+      //console.log(account, this.giveForm.username, n)
+      if (n == -1) return this.$message.warning('用户账号不存在')
+
+      // 获取分配列表判断是否被占用
+      var admin = get('Admin').user
+      var m = admin.map((item) => item.username).indexOf(this.giveForm.username)
+      if (m != -1) return this.$message.warning('用户账号已经被占用')
+
+      // 给对应数据添加修改内容
+
+      // 没有属性时通过 . 的方式添加, 存在就替换
+      admin[this.userId].username = this.giveForm.username
+
+      // 根据下标值进行修改对应的数组对象
+      this.users.splice(this.userId, 1, admin[this.userId])
+      console.log(admin[this.userId])
+      set('Admin', {
+        user: this.users,
+      })
+      this.$message.success('修改成功')
+      this.givetDialogVsible = false
+      this.getAdminData()
+      this.handleSizeChange(this.queryInfo.pagesize)
     },
     // 用户账号管理跳转
     gotolink() {
