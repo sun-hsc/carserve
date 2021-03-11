@@ -453,6 +453,8 @@ export default {
           })
           this.getAdminData()
           this.handleSizeChange(this.queryInfo.pagesize)
+          // 解决删除页面最后一条数据后，没有数据展示的情况
+          if (this.shownews == undefined) window.location.reload()
         })
         .catch(() => {
           this.$message({
