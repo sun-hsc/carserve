@@ -109,7 +109,7 @@ export default {
             id: 2,
             authName: '预约记录',
             children: [
-              { id: 21, authName: '学员预约记录', path: 'reservation_history' },
+              { id: 21, authName: '学员预约记录', path: 'studentRecord' },
             ],
           },
           {

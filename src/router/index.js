@@ -11,6 +11,9 @@ const AdminAccount = () => import('@/components/home/user/AdminAccount.vue')
 const Students = () => import('@/components/home/user/Students.vue')
 const Coachs = () => import('@/components/home/user/Coachs.vue')
 
+//预约记录
+const StudentRecord = () => import('@/components/home/record/StudentRecord.vue')
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -24,14 +27,16 @@ const routes = [
     children: [
       { path: '/welcome', component: Welcome },
       //用户管理
-      { path: '/Admin', component: Admin },
+      { path: '/admin', component: Admin },
       {
         path: '/admin/adminAccount',
         name: 'AdminAccount',
         component: AdminAccount
       },
-      { path: '/Students', component: Students },
-      { path: '/Coachs', component: Coachs }
+      { path: '/students', component: Students },
+      { path: '/coachs', component: Coachs },
+      //预约记录
+      { path: '/studentRecord', component: StudentRecord }
     ]
   }
 ]
