@@ -10,7 +10,6 @@ const Admin = () => import('@/components/home/user/Admin.vue')
 const AdminAccount = () => import('@/components/home/user/AdminAccount.vue')
 const Students = () => import('@/components/home/user/Students.vue')
 const Coachs = () => import('@/components/home/user/Coachs.vue')
-//import Login from '../components/login/Login.vue'
 
 Vue.use(VueRouter)
 
