@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 const Login = () => import('@/components/login/Login.vue')
-const Home = () => import('@/components/home/Home.vue')
+const Home = () => import('@/components/Home.vue')
 const Welcome = () => import('@/components/Welcome.vue')
 
 //用户管理

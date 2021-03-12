@@ -31,7 +31,7 @@
       <el-table :data="shownews" border stripe>
         <!--border边框 stripe隔行变色  -->
         <el-table-column label="#" prop="id" width="40px"></el-table-column>
-        <el-table-column label="用户" prop="username"></el-table-column>
+        <el-table-column label="用户账号" prop="username"></el-table-column>
         <el-table-column label="邮箱" prop="email"></el-table-column>
         <el-table-column label="电话" prop="mobile"></el-table-column>
         <el-table-column label="角色" prop="role_name"></el-table-column>
@@ -116,7 +116,7 @@
     <!--编辑信息对话框-->
     <el-dialog title="修改用户" :visible.sync="editDialogVsible" width="50%" @close="editDialogClose">
       <el-form ref="editFormRef" :model="editForm" :rules="editFormRules" label-width="80px">
-        <el-form-item label="用户">
+        <el-form-item label="用户账号">
           <el-input v-model="editForm.username" disabled></el-input>
         </el-form-item>
         <el-form-item label="角色" prop="role_name">
@@ -453,6 +453,8 @@ export default {
           })
           this.getAdminData()
           this.handleSizeChange(this.queryInfo.pagesize)
+          // 解决删除页面最后一条数据后，没有数据展示的情况
+          if (this.shownews == undefined) window.location.reload()
         })
         .catch(() => {
           this.$message({
