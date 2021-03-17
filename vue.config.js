@@ -4,6 +4,7 @@ function resolve(dir) {
 }
 
 module.exports = {
+  publicPath: './',
   chainWebpack: config => {
     config.resolve.alias
       //第一个参数：别名 第二个参数：路径

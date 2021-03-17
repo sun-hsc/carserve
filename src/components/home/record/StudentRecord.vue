@@ -26,9 +26,24 @@
         <el-table-column label="#" prop="id" width="40px"></el-table-column>
         <el-table-column label="学员姓名" prop="studentName"></el-table-column>
         <el-table-column label="科目二教练" prop="coach2"></el-table-column>
-        <el-table-column label="科目二记录"></el-table-column>
+        <el-table-column label="科目二记录">
+          <template v-slot="scope">
+            <!--详情按钮-->
+            <el-button type="primary" @click="showDetailsDialog2(scope.row.studentName)">
+              <i class="fa fa-file-text-o" aria-hidden="true"></i> 时间记录
+            </el-button>
+          </template>
+        </el-table-column>
+
         <el-table-column label="科目三教练" prop="coach3"></el-table-column>
-        <el-table-column label="科目三记录"></el-table-column>
+        <el-table-column label="科目三记录">
+          <template v-slot="scope">
+            <!--详情按钮-->
+            <el-button type="primary" @click="showDetailsDialog3(scope.row.studentName)">
+              <i class="fa fa-file-text-o" aria-hidden="true"></i> 时间记录
+            </el-button>
+          </template>
+        </el-table-column>
       </el-table>
 
       <!--分页区-->
@@ -44,6 +59,40 @@
         <!--:current-page当前页  :page-size当前的展示数据  :page-sizes选着展示的页面数据-->
       </el-pagination>
     </el-card>
+
+    <!--科目二详情-->
+    <el-dialog
+      :title="'科目二预约记录，学员：' + tableTime2.studentName"
+      :visible.sync="dialogVisibleTime2"
+      width="35%"
+    >
+      <el-table :data="tableTime2.time2" border style="width: 100%" height="350">
+        <el-table-column prop="id" label="#" width="60"></el-table-column>
+        <el-table-column prop="date" label="日期"></el-table-column>
+        <el-table-column prop="inTime" label="时间段"></el-table-column>
+      </el-table>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisibleTime2 = false">取 消</el-button>
+        <el-button type="primary" @click="dialogVisibleTime2 = false">确 定</el-button>
+      </span>
+    </el-dialog>
+
+    <!--科目二详情-->
+    <el-dialog
+      :title="'科目二预约记录，学员：' + tableTime3.studentName"
+      :visible.sync="dialogVisibleTime3"
+      width="35%"
+    >
+      <el-table :data="tableTime3.time3" border style="width: 100%" height="350">
+        <el-table-column prop="id" label="#" width="60"></el-table-column>
+        <el-table-column prop="date" label="日期"></el-table-column>
+        <el-table-column prop="inTime" label="时间段"></el-table-column>
+      </el-table>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisibleTime3 = false">取 消</el-button>
+        <el-button type="primary" @click="dialogVisibleTime3 = false">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -60,7 +109,7 @@ export default {
       // 渲染到页面的数据
       shownews: '',
       //展示页面所有数据的重组[[],[]]
-      changeusers: '',
+      changeUsers: '',
       //分页数据
       pagingInfo: {
         pagesize: 3,
@@ -69,10 +118,22 @@ export default {
       },
       //  查询
       queryInfo: {
-        // 查询内容
         query: '',
-        // 查询的数据
         queryData: '',
+      },
+      // 科目二对话框
+      dialogVisibleTime2: false,
+      tableTime2: {
+        studentName: '',
+        time2: '',
+        coach2: '',
+      },
+      // 科目三对话框
+      dialogVisibleTime3: false,
+      tableTime3: {
+        studentName: '',
+        time3: '',
+        coach3: '',
       },
     }
   },
@@ -90,33 +151,74 @@ export default {
             {
               studentName: '张三',
               coach2: 'daa2',
-              time2: [1],
+              time2: [
+                { date: '2016-05-03', inTime: '11:00-12:00' },
+                { date: '2016-05-04', inTime: '11:00-12:00' },
+                { date: '2016-05-05', inTime: '11:00-12:00' },
+                { date: '2016-05-06', inTime: '11:00-12:00' },
+                { date: '2016-05-07', inTime: '11:00-12:00' },
+                { date: '2016-05-08', inTime: '11:00-12:00' },
+                { date: '2016-05-03', inTime: '11:00-12:00' },
+                { date: '2016-05-04', inTime: '11:00-12:00' },
+                { date: '2016-05-05', inTime: '11:00-12:00' },
+                { date: '2016-05-06', inTime: '11:00-12:00' },
+                { date: '2016-05-07', inTime: '11:00-12:00' },
+                { date: '2016-05-08', inTime: '14:00-15:00' },
+              ],
               coach3: 'daa3',
-              time3: [1],
+              time3: [
+                { date: '2016-05-03', inTime: '11:00-12:00' },
+                { date: '2016-05-04', inTime: '11:00-12:00' },
+                { date: '2016-05-05', inTime: '11:00-12:00' },
+              ],
               id: 1,
             },
             {
               studentName: '李四',
               coach2: 'dab2',
-              time2: [1],
+              time2: [
+                { date: '2016-05-03', inTime: '11:00-12:00' },
+                { date: '2016-05-04', inTime: '11:00-12:00' },
+                { date: '2016-05-05', inTime: '11:00-12:00' },
+              ],
               coach3: 'dab3',
-              time3: [1],
+              time3: [
+                { date: '2016-05-03', inTime: '11:00-12:00' },
+                { date: '2016-05-04', inTime: '11:00-12:00' },
+                { date: '2016-05-05', inTime: '11:00-12:00' },
+              ],
               id: 2,
             },
             {
               studentName: '张三2',
               coach2: 'dac2',
-              time2: [1],
+              time2: [
+                { date: '2016-05-03', inTime: '11:00-12:00' },
+                { date: '2016-05-04', inTime: '11:00-12:00' },
+                { date: '2016-05-05', inTime: '11:00-12:00' },
+              ],
               coach3: 'dac3',
-              time3: [1],
+              time3: [
+                { date: '2016-05-03', inTime: '11:00-12:00' },
+                { date: '2016-05-04', inTime: '11:00-12:00' },
+                { date: '2016-05-05', inTime: '11:00-12:00' },
+              ],
               id: 3,
             },
             {
               studentName: '李四2',
               coach2: 'dae2',
-              time2: [1],
+              time2: [
+                { date: '2016-05-03', inTime: '11:00-12:00' },
+                { date: '2016-05-04', inTime: '11:00-12:00' },
+                { date: '2016-05-05', inTime: '11:00-12:00' },
+              ],
               coach3: 'dae3',
-              time3: [1],
+              time3: [
+                { date: '2016-05-03', inTime: '11:00-12:00' },
+                { date: '2016-05-04', inTime: '11:00-12:00' },
+                { date: '2016-05-05', inTime: '11:00-12:00' },
+              ],
               id: 4,
             },
           ],
@@ -141,23 +243,79 @@ export default {
       for (var i = 0; i < this.pagingInfo.totals; i += newSize) {
         result.push(this.users.slice(i, i + newSize))
       }
-      this.changeusers = result
-      //  console.log(this.changeusers, newSize)
+      this.changeUsers = result
+      //  console.log(this.changeUsers, newSize)
       //this.totals = this.users.length
       //  查询时展示数量的处理
-      this.shownews = this.changeusers[this.pagingInfo.pagenum - 1]
-      console.log(this.changeusers[this.pagingInfo.pagenum - 1])
+      this.shownews = this.changeUsers[this.pagingInfo.pagenum - 1]
+      //console.log(this.changeUsers[this.pagingInfo.pagenum - 1])
       // 当输入框内容不为空
       if (this.inquiry == true) this.getUserList()
     },
     //监听 页码 值改变
-    handleCurrentChange() {
+    handleCurrentChange(newPage) {
       this.pagingInfo.pagenum = newPage
-      this.shownews = this.changeusers[newPage - 1]
+      this.shownews = this.changeUsers[newPage - 1]
       // 根据是否有查询内容进行触发来覆盖没有查询的跳转
       if (this.inquiry == true) this.getUserList()
     },
-    getUserList() {},
+    getUserList() {
+      if (this.queryInfo.query != '') {
+        // 对usernam键进行模糊匹配
+        var j = this.users.filter((n) => {
+          //  n匹配的数组
+          return n.studentName.includes(this.queryInfo.query)
+        })
+        // 更新查询后的数组长度 => 数据的数量
+        this.pagingInfo.totals = j.length
+
+        var result = []
+        for (var i = 0; i < j.length; i += this.pagingInfo.pagesize) {
+          result.push(j.slice(i, i + this.pagingInfo.pagesize))
+        }
+        //console.log(result)
+        this.queryInfo.queryData = result
+        this.shownews = result[this.pagingInfo.pagenum - 1]
+        this.inquiry = true
+      } else {
+        this.pagingInfo.totals = this.users.length
+        this.inquiry = false
+      }
+    },
+    // 科目二详情
+    showDetailsDialog2(studentName) {
+      var index1 = this.users
+        .map((item) => item.studentName)
+        .indexOf(studentName)
+      var time = this.users[index1].time2
+      //添加id记录条数
+      time.forEach((item, n = 0) => {
+        item.id = ++n
+      })
+      this.tableTime2.studentName = studentName
+      this.tableTime2.time2 = time
+      this.tableTime2.coach2 = this.users[index1].coach2
+      //console.log(this.tableTime2)
+      this.dialogVisibleTime2 = true
+    },
+    // 科目三详情
+    showDetailsDialog3(studentName) {
+      var index1 = this.users
+        .map((item) => item.studentName)
+        .indexOf(studentName)
+      var time = this.users[index1].time3
+      console.log(index1, studentName, this.users[0])
+      //添加id记录条数
+      time.forEach((item, n = 0) => {
+        item.id = ++n
+      })
+
+      this.tableTime3.studentName = studentName
+      this.tableTime3.time3 = time
+      this.tableTime3.coach3 = this.users[index1].coach3
+      //console.log(this.tableTime3)
+      this.dialogVisibleTime3 = true
+    },
   },
 }
 </script>
