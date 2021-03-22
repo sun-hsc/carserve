@@ -13,6 +13,9 @@ const Coachs = () => import('@/components/home/user/Coachs.vue')
 
 //预约记录
 const StudentRecord = () => import('@/components/home/record/StudentRecord.vue')
+//车辆管理
+const CarManagement = () => import('@/components/home/car/CarManagement.vue')
+const AddCar = () => import('@/components/home/car/AddCar.vue')
 
 Vue.use(VueRouter)
 
@@ -36,7 +39,10 @@ const routes = [
       { path: '/students', component: Students },
       { path: '/coachs', component: Coachs },
       //预约记录
-      { path: '/studentRecord', component: StudentRecord }
+      { path: '/studentRecord', component: StudentRecord },
+      //车辆管理
+      { path: '/carManagement', component: CarManagement },
+      { path: '/carManagement/addCar', name: AddCar, component: AddCar }
     ]
   }
 ]

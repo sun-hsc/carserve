@@ -115,7 +115,7 @@ export default {
           {
             id: 3,
             authName: '车辆管理',
-            children: [{ id: 31, authName: '车辆信息', path: 'cars' }],
+            children: [{ id: 31, authName: '车辆信息', path: 'carManagement' }],
           },
           {
             id: 4,

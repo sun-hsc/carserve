@@ -345,6 +345,13 @@ export default {
         this.shownews = result[this.queryInfo.pagenum - 1]
         this.inquiry = true
       } else {
+        var result = []
+        var j = this.queryInfo.pagesize
+        for (var i = 0; i < this.totals; i += j) {
+          result.push(this.users.slice(i, i + j))
+        }
+        this.changeCars = result
+        this.shownews = this.changeusers[this.queryInfo.pagenum - 1]
         this.totals = this.users.length
         this.inquiry = false
       }
