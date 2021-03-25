@@ -21,3 +21,7 @@ body,
   font-size: 16px;
 }
 
+/**步骤条字体*/
+.el-step__title {
+  font-size: 14px;
+}

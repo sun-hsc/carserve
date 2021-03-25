@@ -42,13 +42,13 @@ const routes = [
       { path: '/studentRecord', component: StudentRecord },
       //车辆管理
       { path: '/carManagement', component: CarManagement },
-      { path: '/carManagement/addCar', name: AddCar, component: AddCar }
+      { path: '/carManagement/addCar', component: AddCar }
     ]
   }
 ]
 
 const router = new VueRouter({
-  mode: 'history',
+  //mode: 'history',
   base: process.env.BASE_URL,
   routes
 })

@@ -34,7 +34,7 @@
         <el-table-column label="用户账号" prop="username"></el-table-column>
         <el-table-column label="邮箱" prop="email"></el-table-column>
         <el-table-column label="电话" prop="mobile"></el-table-column>
-        <el-table-column label="角色" prop="role_name"></el-table-column>
+        <el-table-column label="管理者" prop="roleName"></el-table-column>
         <el-table-column label="状态" width="80px">
           <template v-slot="scope">
             <!--scope.row  获取当前行的数据-->
@@ -96,8 +96,8 @@
       <!--内容主体区:before-close="handleClose"-->
       <!--addForm数据  addFormRules验证规则-->
       <el-form ref="addFormRef" :model="addForm" :rules="addFormRules" label-width="80px">
-        <el-form-item label="角色" prop="role_name">
-          <el-input v-model="addForm.role_name"></el-input>
+        <el-form-item label="管理者" prop="roleName">
+          <el-input v-model="addForm.roleName"></el-input>
         </el-form-item>
         <el-form-item label="邮箱" prop="email">
           <el-input v-model="addForm.email"></el-input>
@@ -119,8 +119,8 @@
         <el-form-item label="用户账号">
           <el-input v-model="editForm.username" disabled></el-input>
         </el-form-item>
-        <el-form-item label="角色" prop="role_name">
-          <el-input v-model="editForm.role_name"></el-input>
+        <el-form-item label="管理者" prop="roleName">
+          <el-input v-model="editForm.roleName"></el-input>
         </el-form-item>
         <el-form-item label="电话" prop="mobile">
           <el-input v-model="editForm.mobile"></el-input>
@@ -184,14 +184,14 @@ export default {
       addDialogVisible: false,
       //添加用户的表单数据
       addForm: {
-        role_name: '',
+        roleName: '',
         email: '',
         mobile: '',
       },
       // 添加表单的验证规则
       addFormRules: {
         //添加用户名的规则
-        role_name: [{ required: true, validator: validateUsername }],
+        roleName: [{ required: true, validator: validateUsername }],
         email: [{ required: true, validator: validateEmail }],
         mobile: [{ required: true, validator: validatePhone }],
       },
@@ -203,7 +203,7 @@ export default {
       editForm: {},
       // 修改表单的验证规则
       editFormRules: {
-        role_name: [{ required: true, validator: validateUsername }],
+        roleName: [{ required: true, validator: validateUsername }],
         email: [{ required: true, validator: validateEmail }],
         mobile: [{ required: true, validator: validatePhone }],
       },
@@ -234,7 +234,7 @@ export default {
         set('Admin', {
           user: [
             {
-              role_name: '测试角色1',
+              roleName: '测试管理者1',
               username: 'admin',
               mobile: '15868495501',
               state: true,
@@ -242,7 +242,7 @@ export default {
               id: 1,
             },
             {
-              role_name: '测试角色2',
+              roleName: '测试管理者2',
               username: 'admin2',
               mobile: '15878486501',
               state: true,
@@ -250,7 +250,7 @@ export default {
               id: 2,
             },
             {
-              role_name: '管理员1',
+              roleName: '管理员1',
               username: 'ahsc',
               mobile: '17886899888',
               state: true,
@@ -258,7 +258,7 @@ export default {
               id: 3,
             },
             {
-              role_name: '管理员2',
+              roleName: '管理员2',
               username: 'azs',
               mobile: '16817896689',
               state: false,
@@ -266,7 +266,7 @@ export default {
               id: 4,
             },
             {
-              role_name: '管理员3',
+              roleName: '管理员3',
               username: 'zsls',
               mobile: '18817896689',
               state: false,

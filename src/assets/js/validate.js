@@ -1,7 +1,7 @@
 /* 验证账号 */
 export function validateUsername(rule, value, callback) {
   if (value.length < 3 || value.length > 16) {
-    return callback(new Error('用户名不得小于3个或大于20个字符!'))
+    return callback(new Error('用户名不得小于3个或大于16个字符!'))
   } else {
     callback()
   }
@@ -76,4 +76,28 @@ export function validateIdNumber(rule, value, callback) {
       callback()
     }
   }, 100)
+}
+
+/**车牌号验证 */
+export function validateCarNum(rule, value, callback) {
+  const carNumReg = /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}$/
+  if (!value) {
+    return callback(new Error('车牌号码不能为空!!'))
+  }
+  setTimeout(() => {
+    if (!carNumReg.test(value)) {
+      return callback(new Error('您的车牌号码格式错误!'))
+    } else {
+      callback()
+    }
+  }, 100)
+}
+
+/* 车辆名 */
+export function validateCarName(rule, value, callback) {
+  if (value.length < 2 || value.length > 10) {
+    return callback(new Error('车辆名不得小于2个或大于10个字符!'))
+  } else {
+    callback()
+  }
 }
