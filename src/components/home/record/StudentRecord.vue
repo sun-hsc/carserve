@@ -70,6 +70,7 @@
         <el-table-column prop="id" label="#" width="60"></el-table-column>
         <el-table-column prop="date" label="日期"></el-table-column>
         <el-table-column prop="inTime" label="时间段"></el-table-column>
+        <el-table-column prop="signIn" label="签到"></el-table-column>
       </el-table>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisibleTime2 = false">取 消</el-button>
@@ -79,7 +80,7 @@
 
     <!--科目二详情-->
     <el-dialog
-      :title="'科目二预约记录，学员：' + tableTime3.studentName"
+      :title="'科目三预约记录，学员：' + tableTime3.studentName"
       :visible.sync="dialogVisibleTime3"
       width="35%"
     >
@@ -152,24 +153,24 @@ export default {
               studentName: '张三',
               coach2: 'daa2',
               time2: [
-                { date: '2016-05-03', inTime: '11:00-12:00' },
-                { date: '2016-05-04', inTime: '11:00-12:00' },
-                { date: '2016-05-05', inTime: '11:00-12:00' },
-                { date: '2016-05-06', inTime: '11:00-12:00' },
-                { date: '2016-05-07', inTime: '11:00-12:00' },
-                { date: '2016-05-08', inTime: '11:00-12:00' },
-                { date: '2016-05-03', inTime: '11:00-12:00' },
-                { date: '2016-05-04', inTime: '11:00-12:00' },
-                { date: '2016-05-05', inTime: '11:00-12:00' },
-                { date: '2016-05-06', inTime: '11:00-12:00' },
-                { date: '2016-05-07', inTime: '11:00-12:00' },
-                { date: '2016-05-08', inTime: '14:00-15:00' },
+                { date: '2016-05-03', inTime: '11:00-12:00', signIn: '是' },
+                { date: '2016-05-04', inTime: '11:00-12:00', signIn: '是' },
+                { date: '2016-05-05', inTime: '11:00-12:00', signIn: '是' },
+                { date: '2016-05-06', inTime: '11:00-12:00', signIn: '是' },
+                { date: '2016-05-07', inTime: '11:00-12:00', signIn: '是' },
+                { date: '2016-05-08', inTime: '11:00-12:00', signIn: '是' },
+                { date: '2016-05-03', inTime: '11:00-12:00', signIn: '是' },
+                { date: '2016-05-04', inTime: '11:00-12:00', signIn: '是' },
+                { date: '2016-05-05', inTime: '11:00-12:00', signIn: '是' },
+                { date: '2016-05-06', inTime: '11:00-12:00', signIn: '是' },
+                { date: '2016-05-07', inTime: '11:00-12:00', signIn: '是' },
+                { date: '2016-05-08', inTime: '14:00-15:00', signIn: '是' },
               ],
               coach3: 'daa3',
               time3: [
-                { date: '2016-05-03', inTime: '11:00-12:00' },
-                { date: '2016-05-04', inTime: '11:00-12:00' },
-                { date: '2016-05-05', inTime: '11:00-12:00' },
+                { date: '2016-05-03', inTime: '11:00-12:00', signIn: '是' },
+                { date: '2016-05-04', inTime: '11:00-12:00', signIn: '是' },
+                { date: '2016-05-05', inTime: '11:00-12:00', signIn: '是' },
               ],
               id: 1,
             },
@@ -177,15 +178,15 @@ export default {
               studentName: '李四',
               coach2: 'dab2',
               time2: [
-                { date: '2016-05-03', inTime: '11:00-12:00' },
-                { date: '2016-05-04', inTime: '11:00-12:00' },
-                { date: '2016-05-05', inTime: '11:00-12:00' },
+                { date: '2016-05-03', inTime: '11:00-12:00', signIn: '是' },
+                { date: '2016-05-04', inTime: '11:00-12:00', signIn: '是' },
+                { date: '2016-05-05', inTime: '11:00-12:00', signIn: '是' },
               ],
               coach3: 'dab3',
               time3: [
-                { date: '2016-05-03', inTime: '11:00-12:00' },
-                { date: '2016-05-04', inTime: '11:00-12:00' },
-                { date: '2016-05-05', inTime: '11:00-12:00' },
+                { date: '2016-05-03', inTime: '11:00-12:00', signIn: '是' },
+                { date: '2016-05-04', inTime: '11:00-12:00', signIn: '是' },
+                { date: '2016-05-05', inTime: '11:00-12:00', signIn: '是' },
               ],
               id: 2,
             },
@@ -193,15 +194,15 @@ export default {
               studentName: '张三2',
               coach2: 'dac2',
               time2: [
-                { date: '2016-05-03', inTime: '11:00-12:00' },
-                { date: '2016-05-04', inTime: '11:00-12:00' },
-                { date: '2016-05-05', inTime: '11:00-12:00' },
+                { date: '2016-05-03', inTime: '11:00-12:00', signIn: '是' },
+                { date: '2016-05-04', inTime: '11:00-12:00', signIn: '是' },
+                { date: '2016-05-05', inTime: '11:00-12:00', signIn: '是' },
               ],
               coach3: 'dac3',
               time3: [
-                { date: '2016-05-03', inTime: '11:00-12:00' },
-                { date: '2016-05-04', inTime: '11:00-12:00' },
-                { date: '2016-05-05', inTime: '11:00-12:00' },
+                { date: '2016-05-03', inTime: '11:00-12:00', signIn: '是' },
+                { date: '2016-05-04', inTime: '11:00-12:00', signIn: '是' },
+                { date: '2016-05-05', inTime: '11:00-12:00', signIn: '是' },
               ],
               id: 3,
             },
@@ -209,15 +210,15 @@ export default {
               studentName: '李四2',
               coach2: 'dae2',
               time2: [
-                { date: '2016-05-03', inTime: '11:00-12:00' },
-                { date: '2016-05-04', inTime: '11:00-12:00' },
-                { date: '2016-05-05', inTime: '11:00-12:00' },
+                { date: '2016-05-03', inTime: '11:00-12:00', signIn: '是' },
+                { date: '2016-05-04', inTime: '11:00-12:00', signIn: '是' },
+                { date: '2016-05-05', inTime: '11:00-12:00', signIn: '是' },
               ],
               coach3: 'dae3',
               time3: [
-                { date: '2016-05-03', inTime: '11:00-12:00' },
-                { date: '2016-05-04', inTime: '11:00-12:00' },
-                { date: '2016-05-05', inTime: '11:00-12:00' },
+                { date: '2016-05-03', inTime: '11:00-12:00', signIn: '是' },
+                { date: '2016-05-04', inTime: '11:00-12:00', signIn: '是' },
+                { date: '2016-05-05', inTime: '11:00-12:00', signIn: '是' },
               ],
               id: 4,
             },

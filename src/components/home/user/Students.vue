@@ -28,6 +28,7 @@
       <el-table :data="shownews" border stripe>
         <el-table-column label="#" prop="id" width="40px"></el-table-column>
         <el-table-column label="姓名" prop="studentname"></el-table-column>
+        <el-table-column label="性别" prop="sex"></el-table-column>
         <el-table-column label="账号" prop="studentaccount"></el-table-column>
         <el-table-column label="电话" prop="mobile"></el-table-column>
         <el-table-column label="邮箱" prop="email"></el-table-column>
@@ -122,6 +123,7 @@ export default {
               mobile: '15868496601',
               password: '123456',
               email: '123456@qq.com',
+              sex: '男',
               id: 1,
             },
             {
@@ -130,6 +132,7 @@ export default {
               mobile: '15868498801',
               password: '123456',
               email: '12345688@qq.com',
+              sex: '男',
               id: 2,
             },
             {
@@ -138,6 +141,7 @@ export default {
               mobile: '15867895542',
               password: '123456',
               email: '12345699@qq.com',
+              sex: '男',
               id: 3,
             },
             {
@@ -146,6 +150,7 @@ export default {
               mobile: '1583549965',
               password: '123456',
               email: '12345611@qq.com',
+              sex: '女',
               id: 4,
             },
           ],
