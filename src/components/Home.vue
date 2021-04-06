@@ -121,8 +121,8 @@ export default {
             id: 4,
             authName: '预约管理',
             children: [
-              { id: 41, authName: '学员预约', path: 'reservation_student' },
-              { id: 42, authName: '教练预约', path: 'reservation_coach' },
+              { id: 41, authName: '学员预约', path: 'studentOrder' },
+              { id: 42, authName: '教练预约', path: 'coachOrder' },
             ],
           },
           {

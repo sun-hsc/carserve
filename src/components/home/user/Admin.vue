@@ -345,12 +345,6 @@ export default {
         this.shownews = result[this.queryInfo.pagenum - 1]
         this.inquiry = true
       } else {
-        var result = []
-        var j = this.queryInfo.pagesize
-        for (var i = 0; i < this.totals; i += j) {
-          result.push(this.users.slice(i, i + j))
-        }
-        this.changeCars = result
         this.shownews = this.changeusers[this.queryInfo.pagenum - 1]
         this.totals = this.users.length
         this.inquiry = false
@@ -411,16 +405,13 @@ export default {
     editUserInfo() {
       this.$refs.editFormRef.validate((valid) => {
         if (!valid) return
-
         // 根据下标值进行修改对应的数组对象
         this.users.splice(this.userId, 1, this.editForm)
         //console.log(this.users)
         set('Admin', {
           user: this.users,
         })
-
         this.$message.success('修改成功')
-
         /****   获取最新数据
          * var Admin = get('Admin')
          * // 查询最新数据中是否存在改对象
@@ -435,7 +426,6 @@ export default {
          *   this.$message.success('添加失败')
          * }
          */
-
         this.editDialogVsible = false
         this.getAdminData()
         this.handleSizeChange(this.queryInfo.pagesize)
@@ -493,12 +483,8 @@ export default {
       var admin = get('Admin').user
       var m = admin.map((item) => item.username).indexOf(this.giveForm.username)
       if (m != -1) return this.$message.warning('用户账号已经被占用')
-
-      // 给对应数据添加修改内容
-
       // 没有属性时通过 . 的方式添加, 存在就替换
       admin[this.userId].username = this.giveForm.username
-
       // 根据下标值进行修改对应的数组对象
       this.users.splice(this.userId, 1, admin[this.userId])
       console.log(admin[this.userId])

@@ -101,3 +101,18 @@ export function validateCarName(rule, value, callback) {
     callback()
   }
 }
+
+/*日期 0000-00-00 */
+export function validateDate(rule, value, callback) {
+  const dateReg = /^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/
+  if (!value) {
+    return callback(new Error('请输入日期'))
+  }
+  setTimeout(() => {
+    if (!dateReg.test(value)) {
+      return callback(new Error('请输入正确的日期格式，列如：0000-00-00'))
+    } else {
+      callback()
+    }
+  }, 100)
+}
