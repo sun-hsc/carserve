@@ -80,7 +80,7 @@
           <el-input v-model="addForm.studentName"></el-input>
         </el-form-item>
         <el-form-item label="性别">
-          <el-radio-group v-model="radio" @change="getSex">
+          <el-radio-group v-model="radio" @change=" getAddFormSex()">
             <el-radio :label="1">男</el-radio>
             <el-radio :label="2">女</el-radio>
           </el-radio-group>
@@ -109,7 +109,7 @@
           <el-input v-model="editForm.studentName"></el-input>
         </el-form-item>
         <el-form-item label="性别">
-          <el-radio-group v-model="radio" @change="getSex">
+          <el-radio-group v-model="radio" @change=" getEditFormSex">
             <el-radio :label="1">男</el-radio>
             <el-radio :label="2">女</el-radio>
           </el-radio-group>
@@ -260,14 +260,14 @@ export default {
     },
     // 获取 存入的数据
     getStudentData() {
-      var studenDatas = get('Student')
+      var studentDatas = get('Student')
       //  遍历数组添加 id
-      studenDatas.user.forEach((item, n = 0) => {
+      studentDatas.user.forEach((item, n = 0) => {
         item.id = ++n
       })
-      this.users = studenDatas.user
+      this.users = studentDatas.user
       // 数据的数量
-      this.pagingInfo.totals = studenDatas.user.length
+      this.pagingInfo.totals = studentDatas.user.length
     },
     //监听pagesize (展示数据的数量)改变的事件
     handleSizeChange(newSize) {
@@ -317,9 +317,14 @@ export default {
       }
     },
     // 根据选项绑定类型的值 性别
-    getSex() {
+    // 根据选项绑定类型的值 性别
+    getAddFormSex() {
       if (this.radio == 1) return (this.addForm.sex = '男')
       return (this.addForm.sex = '女')
+    },
+    getEditFormSex() {
+      if (this.radio == 1) return (this.editForm.sex = '男')
+      return (this.editForm.sex = '女')
     },
     // 清空添加对话框
     addDialogClose() {
