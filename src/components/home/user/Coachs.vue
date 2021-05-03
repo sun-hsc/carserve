@@ -15,19 +15,34 @@
         <el-col :span="8">
           <!--:span设置宽度-->
           <!--clearable清空输入内容-->
-          <el-input placeholder="请输入学员名字" v-model="queryInfo.query" clearable @clear="getUserList">
-            <el-button slot="append" icon="el-icon-search" @click="getUserList"></el-button>
+          <el-input
+            placeholder="请输入学员名字"
+            v-model="queryInfo.query"
+            clearable
+            @clear="getUserList"
+          >
+            <el-button
+              slot="append"
+              icon="el-icon-search"
+              @click="getUserList"
+            ></el-button>
           </el-input>
         </el-col>
         <el-col :span="4">
-          <el-button type="primary" @click="addDialogVisible = true">添加学员</el-button>
+          <el-button type="primary" @click="addDialogVisible = true"
+            >添加教员</el-button
+          >
         </el-col>
       </el-row>
 
       <!--用户列表区-->
       <el-table :data="shownews" border stripe>
         <el-table-column label="#" prop="id" width="40px"></el-table-column>
-        <el-table-column label="姓名" prop="coach" width="160px"></el-table-column>
+        <el-table-column
+          label="姓名"
+          prop="coach"
+          width="160px"
+        ></el-table-column>
         <el-table-column label="性别" prop="sex" width="60px"></el-table-column>
         <el-table-column label="账号" prop="coachAccount"></el-table-column>
         <el-table-column label="密码" prop="password"></el-table-column>
@@ -72,10 +87,20 @@
 
     <!--添加用户对话框-->
     <!--@close窗口关闭事件-->
-    <el-dialog title="提示" :visible.sync="addDialogVisible" width="50%" @close="addDialogClose">
+    <el-dialog
+      title="提示"
+      :visible.sync="addDialogVisible"
+      width="50%"
+      @close="addDialogClose"
+    >
       <!--内容主体区:before-close="handleClose"-->
       <!--addForm数据  addFormRules验证规则-->
-      <el-form ref="addFormRef" :model="addForm" :rules="addFormRules" label-width="80px">
+      <el-form
+        ref="addFormRef"
+        :model="addForm"
+        :rules="addFormRules"
+        label-width="80px"
+      >
         <el-form-item label="姓名" prop="coach">
           <el-input v-model="addForm.coach"></el-input>
         </el-form-item>
@@ -103,8 +128,18 @@
     </el-dialog>
 
     <!--编辑信息对话框-->
-    <el-dialog title="修改用户" :visible.sync="editDialogVsible" width="50%" @close="editDialogClose">
-      <el-form ref="editFormRef" :model="editForm" :rules="editFormRules" label-width="80px">
+    <el-dialog
+      title="修改用户"
+      :visible.sync="editDialogVsible"
+      width="50%"
+      @close="editDialogClose"
+    >
+      <el-form
+        ref="editFormRef"
+        :model="editForm"
+        :rules="editFormRules"
+        label-width="80px"
+      >
         <el-form-item label="姓名" prop="coach">
           <el-input v-model="editForm.coach"></el-input>
         </el-form-item>
@@ -140,7 +175,7 @@ import { set, get } from '@/assets/js/localStorage'
 import {
   validatePassword,
   validateEmail,
-  validatePhone,
+  validatePhone
 } from '@/assets/js/validate'
 export default {
   name: 'Coachs',
@@ -156,12 +191,12 @@ export default {
       pagingInfo: {
         pagesize: 3,
         pagenum: 1,
-        totals: '',
+        totals: ''
       },
       //查询数据
       queryInfo: {
         query: '',
-        queryData: '',
+        queryData: ''
       },
 
       // 查询状态
@@ -175,7 +210,7 @@ export default {
         email: '',
         mobile: '',
         coachAccount: '',
-        password: '',
+        password: ''
       },
       // 绑定单选框内容
       radio: 1,
@@ -185,7 +220,7 @@ export default {
         coach: [{ required: true, message: '请输入名字', trigger: 'blur' }],
         email: [{ required: true, validator: validateEmail }],
         mobile: [{ required: true, validator: validatePhone }],
-        password: [{ required: true, validator: validatePassword }],
+        password: [{ required: true, validator: validatePassword }]
       },
       //  修改对话框的显示和隐藏
       editDialogVsible: false,
@@ -198,8 +233,8 @@ export default {
         coach: [{ required: true, message: '请输入名字', trigger: 'blur' }],
         email: [{ required: true, validator: validateEmail }],
         mobile: [{ required: true, validator: validatePhone }],
-        password: [{ required: true, validator: validatePassword }],
-      },
+        password: [{ required: true, validator: validatePassword }]
+      }
     }
   },
   created() {
@@ -221,7 +256,7 @@ export default {
               password: '123456',
               email: '123456@qq.com',
               sex: '男',
-              id: 1,
+              id: 1
             },
             {
               coach: '李四',
@@ -230,7 +265,7 @@ export default {
               password: '123456',
               email: '12345688@qq.com',
               sex: '男',
-              id: 2,
+              id: 2
             },
             {
               coach: '张三1',
@@ -239,7 +274,7 @@ export default {
               password: '123456',
               email: '12345699@qq.com',
               sex: '男',
-              id: 3,
+              id: 3
             },
             {
               coach: '李四2',
@@ -248,9 +283,9 @@ export default {
               password: '123456',
               email: '12345611@qq.com',
               sex: '女',
-              id: 4,
-            },
-          ],
+              id: 4
+            }
+          ]
         })
     },
     // 获取 存入的数据
@@ -290,7 +325,7 @@ export default {
     getUserList() {
       if (this.queryInfo.query != '') {
         // 对usernam键进行模糊匹配
-        var j = this.users.filter((n) => {
+        var j = this.users.filter(n => {
           //  n匹配的数组
           return n.coach.includes(this.queryInfo.query)
         })
@@ -327,7 +362,7 @@ export default {
     //添加学员信息
     addUser() {
       //接收校验结果
-      this.$refs.addFormRef.validate((valid) => {
+      this.$refs.addFormRef.validate(valid => {
         if (!valid) return
 
         // 添加状态值 和 id
@@ -339,7 +374,7 @@ export default {
         this.users.push(this.addForm)
 
         set('Coach', {
-          user: this.users,
+          user: this.users
         })
         this.$message.success('添加成功')
         this.addDialogVisible = false
@@ -350,7 +385,7 @@ export default {
     },
     // 修改对话框
     showEditDialog(name) {
-      this.userId = this.users.map((item) => item.coach).indexOf(name)
+      this.userId = this.users.map(item => item.coach).indexOf(name)
       // 如果存在返回其下标值
       if (this.userId != -1) {
         this.editDialogVsible = true
@@ -363,13 +398,13 @@ export default {
     },
     //修改按钮
     editUserInfo() {
-      this.$refs.editFormRef.validate((valid) => {
+      this.$refs.editFormRef.validate(valid => {
         if (!valid) return
         // 根据下标值进行修改对应的数组对象
         this.users.splice(this.userId, 1, this.editForm)
         //console.log(this.users)
         set('Coach', {
-          user: this.users,
+          user: this.users
         })
         this.$message.success('修改成功')
         this.editDialogVsible = false
@@ -382,17 +417,17 @@ export default {
       this.$confirm('此操作将永久删除该信息, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
-        type: 'warning',
+        type: 'warning'
       })
         .then(() => {
           // 获取最新数据，避免删除的是缓存的
           var Coach = get('Coach').user
           // 通过用户名查询到下标进行筛选删除
-          this.users = Coach.filter((item) => item.coach != name)
+          this.users = Coach.filter(item => item.coach != name)
           set('Coach', { user: this.users })
           this.$message({
             type: 'success',
-            message: '删除成功!',
+            message: '删除成功!'
           })
           this.getCoachData()
           this.handleSizeChange(this.pagingInfo.pagesize)
@@ -402,11 +437,11 @@ export default {
         .catch(() => {
           this.$message({
             type: 'info',
-            message: '已取消删除',
+            message: '已取消删除'
           })
         })
-    },
-  },
+    }
+  }
 }
 </script>
 

@@ -128,7 +128,7 @@ export default {
           {
             id: 5,
             authName: '公告管理',
-            children: [{ id: 51, authName: '公告信息', path: 'notices' }],
+            children: [{ id: 51, authName: '公告信息', path: 'notice' }],
           },
         ],
       })

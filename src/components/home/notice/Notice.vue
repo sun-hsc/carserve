@@ -1,18 +1,18 @@
 <template>
-  <div class="coach-order">
+  <div class="notice">
     <!--面包屑导航区-->
     <el-breadcrumb separator=">">
       <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>预约管理</el-breadcrumb-item>
-      <el-breadcrumb-item>教员预约</el-breadcrumb-item>
+      <el-breadcrumb-item>公告管理</el-breadcrumb-item>
+      <el-breadcrumb-item>公告管理列表</el-breadcrumb-item>
     </el-breadcrumb>
-    未来预计开发功能
+    教员提醒学员预约练车公告待开发
   </div>
 </template>
 
 <script>
 export default {
-  name: 'CoachOrder'
+  name: 'Notice'
 }
 </script>
 
