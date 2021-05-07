@@ -250,7 +250,7 @@ export default {
         set('Coach', {
           user: [
             {
-              coach: '张三',
+              coach: '王一',
               coachAccount: '15868496601',
               mobile: '15868496601',
               password: '123456',
@@ -259,7 +259,7 @@ export default {
               id: 1
             },
             {
-              coach: '李四',
+              coach: '王二',
               coachAccount: '15868498801',
               mobile: '15868498801',
               password: '123456',
@@ -268,7 +268,7 @@ export default {
               id: 2
             },
             {
-              coach: '张三1',
+              coach: '王三',
               coachAccount: '15867895542',
               mobile: '15867895542',
               password: '123456',
@@ -277,13 +277,22 @@ export default {
               id: 3
             },
             {
-              coach: '李四2',
+              coach: '王玲',
               coachAccount: '1583549965',
               mobile: '1583549965',
               password: '123456',
               email: '12345611@qq.com',
               sex: '女',
               id: 4
+            },
+            {
+              coach: '王炸',
+              coachAccount: '1583689965',
+              mobile: '1583689965',
+              password: '123456',
+              email: '1234545@qq.com',
+              sex: '男',
+              id: 5
             }
           ]
         })

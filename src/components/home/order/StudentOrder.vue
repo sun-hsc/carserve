@@ -20,7 +20,11 @@
             clearable
             @clear="getStudentList"
           >
-            <el-button slot="append" icon="el-icon-search" @click="getStudentList"></el-button>
+            <el-button
+              slot="append"
+              icon="el-icon-search"
+              @click="getStudentList"
+            ></el-button>
           </el-input>
         </el-col>
         <el-col :span="6">
@@ -30,15 +34,23 @@
             clearable
             @clear="getCoachList"
           >
-            <el-button slot="append" icon="el-icon-search" @click="getCoachList"></el-button>
+            <el-button
+              slot="append"
+              icon="el-icon-search"
+              @click="getCoachList"
+            ></el-button>
           </el-input>
         </el-col>
         <!--改变展示科目的数据-->
         <el-col :span="2">
-          <el-button type="success" circle @click="changeSubjectData">科目切换</el-button>
+          <el-button type="success" circle @click="changeSubjectData"
+            >科目切换</el-button
+          >
         </el-col>
         <el-col :span="4">
-          <el-button type="primary" @click="addDialogVisible = true">添加预约</el-button>
+          <el-button type="primary" @click="addDialogVisible = true"
+            >添加预约</el-button
+          >
         </el-col>
       </el-row>
 
@@ -88,10 +100,20 @@
       </el-pagination>
     </el-card>
 
-    <el-dialog title="添加预约" :visible.sync="addDialogVisible" width="50%" @close="addDialogClose">
+    <el-dialog
+      title="添加预约"
+      :visible.sync="addDialogVisible"
+      width="50%"
+      @close="addDialogClose"
+    >
       <!--内容主体区:before-close="handleClose"-->
       <!--addForm数据  addFormRules验证规则-->
-      <el-form ref="addFormRef" :model="addForm" :rules="addFormRules" label-width="80px">
+      <el-form
+        ref="addFormRef"
+        :model="addForm"
+        :rules="addFormRules"
+        label-width="80px"
+      >
         <el-form-item label="学员名字" prop="studentName">
           <el-input v-model="addForm.studentName"></el-input>
         </el-form-item>
@@ -121,8 +143,18 @@
     </el-dialog>
 
     <!--编辑信息对话框-->
-    <el-dialog title="修改用户" :visible.sync="editDialogVsible" width="50%" @close="editDialogClose">
-      <el-form ref="editFormRef" :model="editForm" :rules="editFormRules" label-width="80px">
+    <el-dialog
+      title="修改用户"
+      :visible.sync="editDialogVsible"
+      width="50%"
+      @close="editDialogClose"
+    >
+      <el-form
+        ref="editFormRef"
+        :model="editForm"
+        :rules="editFormRules"
+        label-width="80px"
+      >
         <el-form-item label="学员名字" prop="studentName">
           <el-input v-model="editForm.studentName"></el-input>
         </el-form-item>
@@ -158,7 +190,7 @@ import { validateDate } from '@/assets/js/validate'
 import {
   validateUsername,
   validateEmail,
-  validatePhone,
+  validatePhone
 } from '@/assets/js/validate'
 export default {
   name: 'CoachOrder',
@@ -176,12 +208,12 @@ export default {
       pagingInfo: {
         pagesize: 3,
         pagenum: 1,
-        totals: '',
+        totals: ''
       },
       //查询数据
       queryInfo: {
         queryStudent: '',
-        queryCoach: '',
+        queryCoach: ''
       },
       // 查询状态
       inquiry: false,
@@ -194,50 +226,50 @@ export default {
         studentName: '',
         date: '',
         inTime: '',
-        coach: '',
+        coach: ''
       },
       // 添加表单的验证规则
       addFormRules: {
         date: [{ required: true, validator: validateDate }],
         coach: [{ required: true, message: '请输教员名', trigger: 'blur' }],
         studentName: [
-          { required: true, message: '请输学员名', trigger: 'blur' },
-        ],
+          { required: true, message: '请输学员名', trigger: 'blur' }
+        ]
       },
       // 绑定下拉列表
       inTimeOptions: [
         {
           label: '8:00-9:00',
-          inTime: '8:00-9:00',
+          inTime: '8:00-9:00'
         },
         {
           label: '9:00-10:00',
-          inTime: '9:00-10:00',
+          inTime: '9:00-10:00'
         },
         {
           label: '10:00-11:00',
-          inTime: '10:00-11:00',
+          inTime: '10:00-11:00'
         },
         {
           label: '11:00-12:00',
-          inTime: '11:00-12:00',
+          inTime: '11:00-12:00'
         },
         {
           label: '14:00-15:00',
-          inTime: '14:00-15:00',
+          inTime: '14:00-15:00'
         },
         {
           label: '15:00-16:00',
-          inTime: '15:00-16:00',
+          inTime: '15:00-16:00'
         },
         {
           label: '16:00-17:00',
-          inTime: '16:00-17:00',
+          inTime: '16:00-17:00'
         },
         {
           label: '17:00-18:00',
-          inTime: '17:00-18:00',
-        },
+          inTime: '17:00-18:00'
+        }
       ],
       inTime: '8:00-9:00',
       //  修改对话框的显示和隐藏
@@ -251,9 +283,9 @@ export default {
         date: [{ required: true, validator: validateDate }],
         coach: [{ required: true, message: '请输教员名', trigger: 'blur' }],
         studentName: [
-          { required: true, message: '请输学员名', trigger: 'blur' },
-        ],
-      },
+          { required: true, message: '请输学员名', trigger: 'blur' }
+        ]
+      }
     }
   },
   created() {
@@ -271,44 +303,44 @@ export default {
               time2: '科目二',
               date: '2016-05-03',
               inTime: '14:00-15:00',
-              coach: 'daa2',
-              id: 1,
+              coach: '王一',
+              id: 1
             },
             {
               studentName: '李四',
               time2: '科目二',
               date: '2016-05-03',
               inTime: '15:00-16:00',
-              coach: 'daa2',
-              id: 2,
+              coach: '王一',
+              id: 2
             },
             {
               studentName: '李小二',
               time2: '科目二',
               date: '2016-05-03',
               inTime: '15:00-16:00',
-              coach: 'dab2',
-              id: 2,
-            },
+              coach: '王二',
+              id: 2
+            }
           ],
           student3: [
             {
-              studentName: '张三2',
+              studentName: '张三',
               time2: '科目三',
               date: '2016-05-03',
               inTime: '14:00-15:00',
-              coach: 'dad',
-              id: 1,
+              coach: '王三',
+              id: 1
             },
             {
               studentName: '李四2',
               time2: '科目三',
               date: '2016-05-03',
               inTime: '15:00-16:00',
-              coach: 'dad',
-              id: 2,
-            },
-          ],
+              coach: '王三',
+              id: 2
+            }
+          ]
         })
     },
     getOrderStudent(subjectDatas) {
@@ -353,7 +385,7 @@ export default {
     getStudentList() {
       if (this.queryInfo.queryStudent != '') {
         // 对usernam键进行模糊匹配
-        var j = this.users.filter((n) => {
+        var j = this.users.filter(n => {
           return n.studentName.includes(this.queryInfo.queryStudent)
         })
         // 更新查询后的数组长度 => 数据的数量
@@ -381,7 +413,7 @@ export default {
     getCoachList() {
       if (this.queryInfo.queryCoach != '') {
         // 对usernam键进行模糊匹配
-        var j = this.users.filter((n) => {
+        var j = this.users.filter(n => {
           return n.coach.includes(this.queryInfo.queryCoach)
         })
         // 更新查询后的数组长度 => 数据的数量
@@ -425,7 +457,7 @@ export default {
     //添加预约
     addOrder() {
       if (this.subjectDatas == 2) {
-        this.$refs.addFormRef.validate((valid) => {
+        this.$refs.addFormRef.validate(valid => {
           if (!valid) return this.$refs.error('请填写完整的信息！')
           // 执行添加的的功能
           var datas = get('Order')
@@ -440,7 +472,7 @@ export default {
         })
         this.addDialogVisible = false
       } else {
-        this.$refs.addFormRef.validate((valid) => {
+        this.$refs.addFormRef.validate(valid => {
           if (!valid) return this.$refs.error('请填写完整的信息！')
           // 执行添加的的功能
           var datas = get('Order')
@@ -459,7 +491,7 @@ export default {
     // 修改按钮对话框
     showEditDialog(name) {
       // 通过id查询到下标
-      this.userId = this.users.map((item) => item.studentName).indexOf(name)
+      this.userId = this.users.map(item => item.studentName).indexOf(name)
       // 如果存在返回其下标值
       if (this.userId != -1) {
         this.editDialogVsible = true
@@ -474,7 +506,7 @@ export default {
     },
     // 提交修改的表单
     editUserInfo() {
-      this.$refs.editFormRef.validate((valid) => {
+      this.$refs.editFormRef.validate(valid => {
         if (!valid) return
         // 根据下标值进行修改对应的数组对象
         this.users.splice(this.userId, 1, this.editForm)
@@ -500,7 +532,7 @@ export default {
       this.$confirm('此操作将永久删除该信息, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
-        type: 'warning',
+        type: 'warning'
       })
         .then(() => {
           // 获取最新数据，避免删除的是缓存的
@@ -509,19 +541,19 @@ export default {
           if (this.subjectDatas == 2) {
             // 通过用户名查询到下标进行筛选删除
             var student2 = datas.student2.filter(
-              (item) => item.studentName != name
+              item => item.studentName != name
             )
             var student3 = datas.student3
           } else {
             var student3 = datas.student3.filter(
-              (item) => item.studentName != name
+              item => item.studentName != name
             )
             var student2 = datas.student2
           }
           set('Order', { student2, student3 })
           this.$message({
             type: 'success',
-            message: '删除成功!',
+            message: '删除成功!'
           })
           this.getOrderStudent(this.subjectDatas)
           this.handleSizeChange(this.pagingInfo.pagesize)
@@ -531,11 +563,11 @@ export default {
         .catch(() => {
           this.$message({
             type: 'info',
-            message: '已取消删除',
+            message: '已取消删除'
           })
         })
-    },
-  },
+    }
+  }
 }
 </script>
 
@@ -548,4 +580,3 @@ export default {
   margin-top: 15px;
 }
 </style>
-

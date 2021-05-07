@@ -15,8 +15,17 @@
         <el-col :span="8">
           <!--:span设置宽度-->
           <!--clearable清空输入内容-->
-          <el-input placeholder="请输入内容" v-model="queryInfo.query" clearable @clear="getCarList">
-            <el-button slot="append" icon="el-icon-search" @click="getCarList"></el-button>
+          <el-input
+            placeholder="请输入内容"
+            v-model="queryInfo.query"
+            clearable
+            @clear="getCarList"
+          >
+            <el-button
+              slot="append"
+              icon="el-icon-search"
+              @click="getCarList"
+            ></el-button>
           </el-input>
         </el-col>
         <el-col :span="4">
@@ -70,8 +79,18 @@
     </el-card>
 
     <!--编辑信息对话框-->
-    <el-dialog title="修改车辆信息" :visible.sync="editDialogVsible" width="50%" @close="editDialogClose">
-      <el-form ref="editFormRef" :model="editForm" :rules="editFormRules" label-width="80px">
+    <el-dialog
+      title="修改车辆信息"
+      :visible.sync="editDialogVsible"
+      width="50%"
+      @close="editDialogClose"
+    >
+      <el-form
+        ref="editFormRef"
+        :model="editForm"
+        :rules="editFormRules"
+        label-width="80px"
+      >
         <el-form-item label="车牌号" prop="brand">
           <el-input v-model="editForm.brand" disabled></el-input>
         </el-form-item>
@@ -123,12 +142,12 @@ export default {
       pagingInfo: {
         pagesize: 3,
         pagenum: 1,
-        totals: '',
+        totals: ''
       },
       //  查询
       queryInfo: {
         query: '',
-        queryData: '',
+        queryData: ''
       },
       // 查询状态
       inquiry: true,
@@ -138,13 +157,13 @@ export default {
         carType: '',
         carName: '',
         carColor: '',
-        coach: '',
+        coach: ''
       },
       // 修改数据的对应下标
       carIndex: '',
       editFormRules: {
         carName: [{ required: true, validator: validateCarName }],
-        brand: [{ required: true, validator: validateCarNum }],
+        brand: [{ required: true, validator: validateCarNum }]
       },
       editDialogVsible: false,
       // 单选框
@@ -153,18 +172,18 @@ export default {
       colorOptions: [
         {
           id: '白色',
-          color: '白色',
+          color: '白色'
         },
         {
           id: '灰色',
-          color: '灰色',
+          color: '灰色'
         },
         {
           id: '黄色',
-          color: '黄色',
-        },
+          color: '黄色'
+        }
       ],
-      color: '',
+      color: ''
     }
   },
   created() {
@@ -182,26 +201,34 @@ export default {
               carType: 'C1',
               carName: '轩逸',
               carColor: '白色',
-              coach: 'daa2',
-              id: 1,
+              coach: '王一',
+              id: 1
             },
             {
               brand: '桂A5686L',
               carType: 'C1',
               carName: '雪铁龙C3L',
               carColor: '白色',
-              coach: 'dab2',
-              id: 2,
+              coach: '王二',
+              id: 2
             },
             {
               brand: '桂A50867',
               carType: 'C1',
               carName: '雪铁龙C3L',
               carColor: '白色',
-              coach: 'dac2',
-              id: 3,
+              coach: '王三',
+              id: 3
             },
-          ],
+            {
+              brand: '桂A50897',
+              carType: 'C2',
+              carName: '雪铁龙C3L',
+              carColor: '白色',
+              coach: '王玲',
+              id: 4
+            }
+          ]
         })
     },
     // 获取数据
@@ -244,7 +271,7 @@ export default {
     getCarList() {
       if (this.queryInfo.query != '') {
         // 对usernam键进行模糊匹配
-        var j = this.cars.filter((n) => {
+        var j = this.cars.filter(n => {
           //  n匹配的数组
           return n.brand.includes(this.queryInfo.query)
         })
@@ -276,17 +303,17 @@ export default {
       this.$confirm('此操作将永久删除该信息, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
-        type: 'warning',
+        type: 'warning'
       })
         .then(() => {
           // 获取最新数据，避免删除的是缓存的
           var carData = get('Cars')
           // 通过用户名查询到下标进行筛选删除
-          this.cars = carData.car.filter((item) => item.brand != brand)
+          this.cars = carData.car.filter(item => item.brand != brand)
           set('Cars', { car: this.cars })
           this.$message({
             type: 'success',
-            message: '删除成功!',
+            message: '删除成功!'
           })
           this.getCars()
           this.handleSizeChange(this.pagingInfo.pagesize)
@@ -296,7 +323,7 @@ export default {
         .catch(() => {
           this.$message({
             type: 'info',
-            message: '已取消删除',
+            message: '已取消删除'
           })
         })
     },
@@ -305,7 +332,7 @@ export default {
       // 获取最新数据，避免修改的是缓存的
       this.cars = get('Cars').car
       // 通过用户账号查询到下标
-      this.carIndex = this.cars.map((item) => item.brand).indexOf(brand)
+      this.carIndex = this.cars.map(item => item.brand).indexOf(brand)
       // 如果存在返回其下标值
       if (this.carIndex == -1) {
         this.$message.success('该车辆不存在，刷新页面获取最新信息')
@@ -339,7 +366,7 @@ export default {
     },
     // 修改数据提交按钮
     editCarInfo() {
-      this.$refs.editFormRef.validate((valid) => {
+      this.$refs.editFormRef.validate(valid => {
         if (!valid) return
 
         // 根据下标值进行修改对应的数组对象，插入数据
@@ -348,7 +375,7 @@ export default {
         set('Cars', { car: this.cars })
         // 获取最新数据进行查询判断是否修改成功
         var datas = get('Cars').car
-        var n = datas.map((item) => item.brand).indexOf(this.editForm.brand)
+        var n = datas.map(item => item.brand).indexOf(this.editForm.brand)
         if (n == -1) this.$message.info('修改失败')
         this.$message.success('修改成功')
 
@@ -356,8 +383,8 @@ export default {
         this.getCars()
         this.handleSizeChange(this.pagingInfo.pagesize)
       })
-    },
-  },
+    }
+  }
 }
 </script>
 

@@ -51,6 +51,19 @@
             </el-button>
           </template>
         </el-table-column>
+        <el-table-column label="科二考试" width="100px">
+          <template v-slot="scope">
+            <!--scope.row  获取当前行的数据-->
+            <!--el-switch开关按钮-->
+            <el-switch
+              active-color="#13ce66"
+              inactive-color="#ff4949"
+              active-text="通过"
+              v-model="scope.row.testPass2"
+              @change="testPass2Change(scope.row)"
+            ></el-switch>
+          </template>
+        </el-table-column>
 
         <el-table-column label="科目三教练" prop="coach3"></el-table-column>
         <el-table-column label="科目三记录">
@@ -62,6 +75,19 @@
             >
               <i class="fa fa-file-text-o" aria-hidden="true"></i> 时间记录
             </el-button>
+          </template>
+        </el-table-column>
+        <el-table-column label="科三考试" width="100px">
+          <template v-slot="scope">
+            <!--scope.row  获取当前行的数据-->
+            <!--el-switch开关按钮-->
+            <el-switch
+              active-color="#13ce66"
+              inactive-color="#ff4949"
+              active-text="通过"
+              v-model="scope.row.testPass3"
+              @change="testPass3Change(scope.row)"
+            ></el-switch>
           </template>
         </el-table-column>
         <el-table-column label="禁止预约" width="100px">
@@ -76,6 +102,7 @@
             ></el-switch>
           </template>
         </el-table-column>
+
         <el-table-column label="操作">
           <template v-slot="scope">
             <!--v-slot="scope"  作用域插槽绑定用于绑定对应的数据-->
@@ -286,7 +313,7 @@ export default {
           student: [
             {
               studentName: '张三',
-              coach2: 'daa2',
+              coach2: '王一',
               time2: [
                 { date: '2016-05-03', inTime: '11:00-12:00', signIn: '是' },
                 { date: '2016-05-04', inTime: '11:00-12:00', signIn: '是' },
@@ -301,72 +328,72 @@ export default {
                 { date: '2016-05-07', inTime: '11:00-12:00', signIn: '是' },
                 { date: '2016-05-08', inTime: '14:00-15:00', signIn: '是' }
               ],
-              coach3: 'daa3',
+              coach3: '王三',
               time3: [
                 { date: '2016-05-03', inTime: '11:00-12:00', signIn: '是' },
                 { date: '2016-05-04', inTime: '11:00-12:00', signIn: '是' },
                 { date: '2016-05-05', inTime: '11:00-12:00', signIn: '是' }
               ],
               state: true,
-              pass2: ture,
-              pass3: ture,
+              testPass2: false,
+              testPass3: false,
               id: 1
             },
             {
               studentName: '李四',
-              coach2: 'dab2',
+              coach2: '王二',
               time2: [
                 { date: '2016-05-03', inTime: '11:00-12:00', signIn: '是' },
                 { date: '2016-05-04', inTime: '11:00-12:00', signIn: '是' },
                 { date: '2016-05-05', inTime: '11:00-12:00', signIn: '是' }
               ],
-              coach3: 'dab3',
+              coach3: '王三',
               time3: [
                 { date: '2016-05-03', inTime: '11:00-12:00', signIn: '是' },
                 { date: '2016-05-04', inTime: '11:00-12:00', signIn: '是' },
                 { date: '2016-05-05', inTime: '11:00-12:00', signIn: '是' }
               ],
               state: true,
-              pass2: ture,
-              pass3: ture,
+              testPass2: false,
+              testPass3: false,
               id: 2
             },
             {
               studentName: '张三2',
-              coach2: 'dac2',
+              coach2: '王二',
               time2: [
                 { date: '2016-05-03', inTime: '11:00-12:00', signIn: '是' },
                 { date: '2016-05-04', inTime: '11:00-12:00', signIn: '是' },
                 { date: '2016-05-05', inTime: '11:00-12:00', signIn: '是' }
               ],
-              coach3: 'dac3',
+              coach3: '王三',
               time3: [
                 { date: '2016-05-03', inTime: '11:00-12:00', signIn: '是' },
                 { date: '2016-05-04', inTime: '11:00-12:00', signIn: '是' },
                 { date: '2016-05-05', inTime: '11:00-12:00', signIn: '是' }
               ],
               state: true,
-              pass2: ture,
-              pass3: ture,
+              testPass2: false,
+              testPass3: false,
               id: 3
             },
             {
               studentName: '李四2',
-              coach2: 'dae2',
+              coach2: '王二',
               time2: [
                 { date: '2016-05-03', inTime: '11:00-12:00', signIn: '是' },
                 { date: '2016-05-04', inTime: '11:00-12:00', signIn: '是' },
                 { date: '2016-05-05', inTime: '11:00-12:00', signIn: '是' }
               ],
-              coach3: 'dae3',
+              coach3: '王三',
               time3: [
                 { date: '2016-05-03', inTime: '11:00-12:00', signIn: '是' },
                 { date: '2016-05-04', inTime: '11:00-12:00', signIn: '是' },
                 { date: '2016-05-05', inTime: '11:00-12:00', signIn: '是' }
               ],
               state: true,
-              pass2: ture,
-              pass3: ture,
+              testPass2: false,
+              testPass3: false,
               id: 4
             }
           ]
@@ -556,6 +583,33 @@ export default {
       this.editDialogVsible = false
       this.getStudentRecord()
       this.handleSizeChange(this.pagingInfo.pagesize)
+    },
+
+    //监听科目二状态改变
+    testPass2Change(userinfo) {
+      //查询数组中对象的id是否存在，并返回下标值
+      var i = this.users.map(item => item.id).indexOf(userinfo.id)
+      // 根据数组下标值替换数组的成员
+      this.users.splice(i, 1, userinfo)
+      //console.log(this.users)
+      //修改后保存到浏览器中
+      set('Record', {
+        student: this.users
+      })
+      this.$message.success('用户科目二考试状态更新')
+    },
+    //监听科目三状态改变
+    testPass3Change(userinfo) {
+      //查询数组中对象的id是否存在，并返回下标值
+      var i = this.users.map(item => item.id).indexOf(userinfo.id)
+      // 根据数组下标值替换数组的成员
+      this.users.splice(i, 1, userinfo)
+      //console.log(this.users)
+      //修改后保存到浏览器中
+      set('Record', {
+        student: this.users
+      })
+      this.$message.success('用户科目三状态更新')
     }
   }
 }
