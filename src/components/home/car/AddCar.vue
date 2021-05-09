@@ -30,10 +30,17 @@
       >
         <!--label-position设置表单的区域位置-->
         <!--tabs标签区域-->
-        <el-tabs :tab-position="'left'" v-model="activeIndex" :before-leave="beforeTabLeave">
+        <el-tabs
+          :tab-position="'left'"
+          v-model="activeIndex"
+          :before-leave="beforeTabLeave"
+        >
           <el-tab-pane label="车辆基本信息" name="0">
             <el-form-item label="车辆名字" prop="carName">
-              <el-input v-model="addForm.carName" style="width:220px"></el-input>
+              <el-input
+                v-model="addForm.carName"
+                style="width:220px"
+              ></el-input>
             </el-form-item>
             <el-form-item label="车辆类型">
               <el-radio-group v-model="radio" @change="getCarType">
@@ -59,7 +66,9 @@
             <el-form-item label="教员名字">
               <el-input v-model="addForm.coach"></el-input>
             </el-form-item>
-            <el-button type="primary" round @click="addCar">添加车辆信息</el-button>
+            <el-button type="primary" round @click="addCar"
+              >添加车辆信息</el-button
+            >
           </el-tab-pane>
         </el-tabs>
       </el-form>
@@ -77,15 +86,15 @@ export default {
       //激活步骤条绑定
       activeIndex: '0',
       addForm: {
-        brand: '桂A8586L',
+        brand: '',
         carType: 'C1',
-        carName: '雅阁',
+        carName: '',
         carColor: '白色',
-        coach: '',
+        coach: ''
       },
       addFormRules: {
         carName: [{ required: true, validator: validateCarName }],
-        brand: [{ required: true, validator: validateCarNum }],
+        brand: [{ required: true, validator: validateCarNum }]
       },
       // 绑定单选框内容
       radio: 1,
@@ -93,18 +102,18 @@ export default {
       colorOptions: [
         {
           id: '白色',
-          color: '白色',
+          color: '白色'
         },
         {
           id: '灰色',
-          color: '灰色',
+          color: '灰色'
         },
         {
           id: '黄色',
-          color: '黄色',
-        },
+          color: '黄色'
+        }
       ],
-      color: '白色',
+      color: '白色'
     }
   },
   created() {},
@@ -140,7 +149,7 @@ export default {
     },
     // 添加车辆信息
     addCar() {
-      this.$refs.addFormRef.validate((valid) => {
+      this.$refs.addFormRef.validate(valid => {
         if (!valid) return this.$refs.error('请填写完整的信息！')
         // 执行添加的的功能
         var datas = get('Cars').car
@@ -152,8 +161,8 @@ export default {
         this.$message.success('信息添加成功')
         this.$router.push('/carManagement')
       })
-    },
-  },
+    }
+  }
 }
 </script>
 

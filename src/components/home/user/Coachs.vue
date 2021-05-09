@@ -88,7 +88,7 @@
     <!--添加用户对话框-->
     <!--@close窗口关闭事件-->
     <el-dialog
-      title="提示"
+      title="添加教员"
       :visible.sync="addDialogVisible"
       width="50%"
       @close="addDialogClose"
@@ -123,7 +123,7 @@
       <!--底部按钮区-->
       <span slot="footer" class="dialog-footer">
         <el-button @click="addDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="addUser">确 定</el-button>
+        <el-button type="primary" @click="addUser">添加</el-button>
       </span>
     </el-dialog>
 
@@ -164,7 +164,7 @@
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="editDialogVsible = false">取 消</el-button>
-        <el-button type="primary" @click="editUserInfo">确 定</el-button>
+        <el-button type="primary" @click="editUserInfo">修改</el-button>
       </span>
     </el-dialog>
   </div>
@@ -264,7 +264,7 @@ export default {
               mobile: '15868498801',
               password: '123456',
               email: '12345688@qq.com',
-              sex: '男',
+              sex: '女',
               id: 2
             },
             {
@@ -277,22 +277,49 @@ export default {
               id: 3
             },
             {
+              coach: '王四',
+              coachAccount: '15898966421',
+              email: 'akyqq11@qq.com',
+              id: 4,
+              mobile: '15898966421',
+              password: '123456',
+              sex: '女'
+            },
+            {
+              coach: '王五',
+              coachAccount: '15836899696',
+              email: '123459@qq.com',
+              id: 5,
+              mobile: '15836899696',
+              password: '123456',
+              sex: '男'
+            },
+            {
+              coach: '王六',
+              coachAccount: '15978741251',
+              email: '123458@qq.com',
+              id: 5,
+              mobile: '15978741251',
+              password: '123456',
+              sex: '男'
+            },
+            {
               coach: '王玲',
               coachAccount: '1583549965',
               mobile: '1583549965',
               password: '123456',
               email: '12345611@qq.com',
               sex: '女',
-              id: 4
+              id: 6
             },
             {
               coach: '王炸',
-              coachAccount: '1583689965',
-              mobile: '1583689965',
+              coachAccount: '15736891765',
+              mobile: '15736891765',
               password: '123456',
               email: '1234545@qq.com',
               sex: '男',
-              id: 5
+              id: 7
             }
           ]
         })

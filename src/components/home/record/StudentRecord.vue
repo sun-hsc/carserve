@@ -325,8 +325,7 @@ export default {
                 { date: '2016-05-04', inTime: '11:00-12:00', signIn: '是' },
                 { date: '2016-05-05', inTime: '11:00-12:00', signIn: '是' },
                 { date: '2016-05-06', inTime: '11:00-12:00', signIn: '是' },
-                { date: '2016-05-07', inTime: '11:00-12:00', signIn: '是' },
-                { date: '2016-05-08', inTime: '14:00-15:00', signIn: '是' }
+                { date: '2016-05-07', inTime: '11:00-12:00', signIn: '是' }
               ],
               coach3: '王三',
               time3: [
@@ -335,9 +334,51 @@ export default {
                 { date: '2016-05-05', inTime: '11:00-12:00', signIn: '是' }
               ],
               state: true,
-              testPass2: false,
+              testPass2: true,
               testPass3: false,
               id: 1
+            },
+            {
+              studentName: '李三',
+              coach2: '王二',
+              time2: [
+                { date: '2016-05-03', inTime: '11:00-12:00', signIn: '是' },
+                { date: '2016-05-04', inTime: '11:00-12:00', signIn: '是' },
+                { date: '2016-05-05', inTime: '11:00-12:00', signIn: '是' },
+                { date: '2016-05-06', inTime: '11:00-12:00', signIn: '是' },
+                { date: '2016-05-07', inTime: '11:00-12:00', signIn: '是' },
+                { date: '2016-05-08', inTime: '11:00-12:00', signIn: '是' },
+                { date: '2016-05-09', inTime: '11:00-12:00', signIn: '是' },
+                { date: '2016-05-11', inTime: '11:00-12:00', signIn: '是' },
+                { date: '2016-05-12', inTime: '11:00-12:00', signIn: '是' },
+                { date: '2016-05-13', inTime: '11:00-12:00', signIn: '是' },
+                { date: '2016-05-14', inTime: '11:00-12:00', signIn: '是' }
+              ],
+              coach3: '王三',
+              time3: [
+                { date: '2016-06-03', inTime: '11:00-12:00', signIn: '是' },
+                { date: '2016-06-04', inTime: '11:00-12:00', signIn: '是' },
+                { date: '2016-06-05', inTime: '11:00-12:00', signIn: '是' }
+              ],
+              state: true,
+              testPass2: true,
+              testPass3: false,
+              id: 2
+            },
+            {
+              studentName: '李一',
+              coach2: '王二',
+              time2: [
+                { date: '2016-05-03', inTime: '9:00-10:00', signIn: '是' },
+                { date: '2016-05-04', inTime: '9:00-10:00', signIn: '是' },
+                { date: '2016-05-05', inTime: '9:00-10:00', signIn: '是' }
+              ],
+              coach3: '',
+              time3: [],
+              state: true,
+              testPass2: false,
+              testPass3: false,
+              id: 3
             },
             {
               studentName: '李四',
@@ -347,54 +388,27 @@ export default {
                 { date: '2016-05-04', inTime: '11:00-12:00', signIn: '是' },
                 { date: '2016-05-05', inTime: '11:00-12:00', signIn: '是' }
               ],
-              coach3: '王三',
-              time3: [
-                { date: '2016-05-03', inTime: '11:00-12:00', signIn: '是' },
-                { date: '2016-05-04', inTime: '11:00-12:00', signIn: '是' },
-                { date: '2016-05-05', inTime: '11:00-12:00', signIn: '是' }
-              ],
-              state: true,
-              testPass2: false,
-              testPass3: false,
-              id: 2
-            },
-            {
-              studentName: '张三2',
-              coach2: '王二',
-              time2: [
-                { date: '2016-05-03', inTime: '11:00-12:00', signIn: '是' },
-                { date: '2016-05-04', inTime: '11:00-12:00', signIn: '是' },
-                { date: '2016-05-05', inTime: '11:00-12:00', signIn: '是' }
-              ],
-              coach3: '王三',
-              time3: [
-                { date: '2016-05-03', inTime: '11:00-12:00', signIn: '是' },
-                { date: '2016-05-04', inTime: '11:00-12:00', signIn: '是' },
-                { date: '2016-05-05', inTime: '11:00-12:00', signIn: '是' }
-              ],
-              state: true,
-              testPass2: false,
-              testPass3: false,
-              id: 3
-            },
-            {
-              studentName: '李四2',
-              coach2: '王二',
-              time2: [
-                { date: '2016-05-03', inTime: '11:00-12:00', signIn: '是' },
-                { date: '2016-05-04', inTime: '11:00-12:00', signIn: '是' },
-                { date: '2016-05-05', inTime: '11:00-12:00', signIn: '是' }
-              ],
-              coach3: '王三',
-              time3: [
-                { date: '2016-05-03', inTime: '11:00-12:00', signIn: '是' },
-                { date: '2016-05-04', inTime: '11:00-12:00', signIn: '是' },
-                { date: '2016-05-05', inTime: '11:00-12:00', signIn: '是' }
-              ],
+              coach3: '',
+              time3: [],
               state: true,
               testPass2: false,
               testPass3: false,
               id: 4
+            },
+            {
+              studentName: '张二',
+              coach2: '王二',
+              time2: [
+                { date: '2016-05-03', inTime: '15:00-16:00', signIn: '是' },
+                { date: '2016-05-04', inTime: '15:00-16:00', signIn: '是' },
+                { date: '2016-05-05', inTime: '15:00-16:00', signIn: '是' }
+              ],
+              coach3: '',
+              time3: [],
+              state: true,
+              testPass2: false,
+              testPass3: false,
+              id: 5
             }
           ]
         })

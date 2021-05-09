@@ -299,10 +299,18 @@ export default {
         set('Order', {
           student2: [
             {
-              studentName: '张三',
+              studentName: '张一',
               time2: '科目二',
               date: '2016-05-03',
               inTime: '14:00-15:00',
+              coach: '王一',
+              id: 1
+            },
+            {
+              studentName: '张二',
+              time2: '科目二',
+              date: '2016-05-03',
+              inTime: '9:00-10:00',
               coach: '王一',
               id: 1
             },
@@ -315,12 +323,12 @@ export default {
               id: 2
             },
             {
-              studentName: '李小二',
+              studentName: '李一',
               time2: '科目二',
               date: '2016-05-03',
               inTime: '15:00-16:00',
               coach: '王二',
-              id: 2
+              id: 3
             }
           ],
           student3: [
@@ -333,7 +341,7 @@ export default {
               id: 1
             },
             {
-              studentName: '李四2',
+              studentName: '李三',
               time2: '科目三',
               date: '2016-05-03',
               inTime: '15:00-16:00',
