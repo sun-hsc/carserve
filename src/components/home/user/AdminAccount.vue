@@ -20,12 +20,18 @@
             clearable
             @clear="queryData"
           >
-            <el-button slot="append" icon="el-icon-search" @click="queryData"></el-button>
+            <el-button
+              slot="append"
+              icon="el-icon-search"
+              @click="queryData"
+            ></el-button>
           </el-input>
         </el-col>
         <!--添加账号-->
         <el-col :span="4">
-          <el-button type="primary" @click="addDialogVisible = true">添加用户账号</el-button>
+          <el-button type="primary" @click="addDialogVisible = true"
+            >添加用户账号</el-button
+          >
         </el-col>
       </el-row>
 
@@ -72,9 +78,19 @@
     </el-card>
 
     <!--添加窗口-->
-    <el-dialog title="提示" :visible.sync="addDialogVisible" width="50%" @close="addDialogClose">
+    <el-dialog
+      title="添加"
+      :visible.sync="addDialogVisible"
+      width="50%"
+      @close="addDialogClose"
+    >
       <!--表单编辑区-->
-      <el-form ref="addFormRef" :model="addAdminForm" :rules="addFormRules" label-width="80px">
+      <el-form
+        ref="addFormRef"
+        :model="addAdminForm"
+        :rules="addFormRules"
+        label-width="80px"
+      >
         <el-form-item label="用户账号" prop="username">
           <el-input v-model="addAdminForm.username"></el-input>
         </el-form-item>
@@ -84,13 +100,23 @@
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="addDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="addUser">确 定</el-button>
+        <el-button type="primary" @click="addUser">添 加</el-button>
       </span>
     </el-dialog>
 
     <!--编辑信息对话框-->
-    <el-dialog title="修改用户" :visible.sync="editDialogVsible" width="50%" @close="editDialogClose">
-      <el-form ref="editFormRef" :model="editForm" :rules="editFormRules" label-width="80px">
+    <el-dialog
+      title="修改用户"
+      :visible.sync="editDialogVsible"
+      width="50%"
+      @close="editDialogClose"
+    >
+      <el-form
+        ref="editFormRef"
+        :model="editForm"
+        :rules="editFormRules"
+        label-width="80px"
+      >
         <el-form-item label="用户账号" prop="username">
           <el-input v-model="editForm.username"></el-input>
         </el-form-item>
@@ -131,19 +157,19 @@ export default {
         // 查询内容
         query: '',
         // 查询的数据
-        queryData: '',
+        queryData: ''
       },
       // 添加对话框激活
       addDialogVisible: false,
       // 添加对话框表单
       addAdminForm: {
         username: '',
-        password: '',
+        password: ''
       },
       // 添加对话框的验证规则
       addFormRules: {
         username: [{ required: true, validator: validateUsername }],
-        password: [{ required: true, validator: validatePassword }],
+        password: [{ required: true, validator: validatePassword }]
       },
       //  修改对话框的显示和隐藏
       editDialogVsible: false,
@@ -154,8 +180,8 @@ export default {
       // 修改表单的验证规则
       editFormRules: {
         username: [{ required: true, validator: validateUsername }],
-        password: [{ required: true, validator: validatePassword }],
-      },
+        password: [{ required: true, validator: validatePassword }]
+      }
     }
   },
   created() {
@@ -201,7 +227,7 @@ export default {
     queryData() {
       if (this.queryInfo.query != '') {
         // 对usernam键进行模糊匹配
-        var j = this.datas.filter((n) => {
+        var j = this.datas.filter(n => {
           //  n匹配的数组
           return n.username.includes(this.queryInfo.query)
         })
@@ -229,13 +255,13 @@ export default {
     // 添加窗口
     addUser() {
       //接收校验结果
-      this.$refs.addFormRef.validate((valid) => {
+      this.$refs.addFormRef.validate(valid => {
         if (!valid) return
         // 获取新的数据
         var uesrs = get('Account')
         // 进行查询判断是否存在
         var n = uesrs.adminUser
-          .map((item) => item.b)
+          .map(item => item.b)
           .indexOf(this.addAdminForm.username)
 
         if (n == -1) this.$message.info('添加失败,用户已经存在')
@@ -256,7 +282,7 @@ export default {
       this.admindatas = get('Account').adminUser
       // 通过用户账号查询到下标
       this.adminId = this.admindatas
-        .map((item) => item.username)
+        .map(item => item.username)
         .indexOf(username)
       // console.log(username, this.admindatas, this.adminId)
       // 如果存在返回其下标值
@@ -274,7 +300,7 @@ export default {
     },
     // 提交修改的表单
     editUserInfo() {
-      this.$refs.editFormRef.validate((valid) => {
+      this.$refs.editFormRef.validate(valid => {
         if (!valid) return
 
         // 根据下标值进行修改对应的数组对象，插入数据
@@ -284,9 +310,7 @@ export default {
         set('Account', { adminUser: this.admindatas })
         // 获取最新数据进行查询判断是否修改成功
         var admin = get('Account').adminUser
-        var n = admin
-          .map((item) => item.username)
-          .indexOf(this.editForm.username)
+        var n = admin.map(item => item.username).indexOf(this.editForm.username)
         if (n == -1) this.$message.info('修改失败')
         this.$message.success('修改成功')
 
@@ -300,19 +324,19 @@ export default {
       this.$confirm('此操作将永久删除该信息, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
-        type: 'warning',
+        type: 'warning'
       })
         .then(() => {
           // 获取最新数据，避免删除的是缓存的
           var admin = get('Account')
           // 通过用户名查询到下标进行筛选删除
           this.admindatas = admin.adminUser.filter(
-            (item) => item.username != username
+            item => item.username != username
           )
           set('Account', { adminUser: this.admindatas })
           this.$message({
             type: 'success',
-            message: '删除成功!',
+            message: '删除成功!'
           })
           this.getAccount()
           this.handleSizeChange(this.queryInfo.pagesize)
@@ -323,11 +347,11 @@ export default {
         .catch(() => {
           this.$message({
             type: 'info',
-            message: '已取消删除',
+            message: '已取消删除'
           })
         })
-    },
-  },
+    }
+  }
 }
 </script>
 

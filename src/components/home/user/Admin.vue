@@ -112,7 +112,7 @@
     <!--添加用户对话框-->
     <!--@close窗口关闭事件-->
     <el-dialog
-      title="提示"
+      title="添加用户"
       :visible.sync="addDialogVisible"
       width="50%"
       @close="addDialogClose"
@@ -138,7 +138,7 @@
       <!--底部按钮区-->
       <span slot="footer" class="dialog-footer">
         <el-button @click="addDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="addUser">确 定</el-button>
+        <el-button type="primary" @click="addUser">添 加</el-button>
       </span>
     </el-dialog>
 
